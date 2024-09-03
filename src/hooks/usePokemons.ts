@@ -5,7 +5,7 @@ import { useFilterContext } from "./useFilterContext";
 
 
 
-export const usePokemones = (offset : number) => {
+export const usePokemones = (offset : number, sortOrder : 'asc' | 'desc') => {
 
 
 const [pokemon, setPokemon] = useState<PokemonData[]>([]);
@@ -25,6 +25,11 @@ const {filters} = useFilterContext();
               } else {
                 pokemones = await getPokemonsPagination(offset);
               } 
+
+              pokemones = pokemones.sort((a,b) => {
+                return sortOrder === 'asc' ? a.id - b.id : b.id - a.id
+              })
+
                 setPokemon(pokemones);
       
           } catch (error) {
@@ -35,7 +40,7 @@ const {filters} = useFilterContext();
              
           }
           fetchPokemones();
-      }, [offset, filters])
+      }, [offset, filters, sortOrder])
 
       return {pokemon, isLoading, error}
 }
