@@ -32,5 +32,9 @@ export type PokemonDetail = {
     };
 };
 
-
+export type PokemontListProps = {
+    pokemon: PokemonData[];
+    isLoading: boolean;
+    error: string | null;
+  }
 

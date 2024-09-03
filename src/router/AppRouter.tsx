@@ -4,14 +4,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Pokemon from "../pages/Pokemon";
-import PokemontList from "../components/PokemontList";
+import PokemonHome from "../pages/PokemonHome";
 
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PokemontList />
+    element: <PokemonHome />
     
   },
   {
