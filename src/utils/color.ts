@@ -1,4 +1,4 @@
-export const typeColors: { [key: string]: string } = {
+export const typeColors: { [key: string]: any } = {
     fire: 'bg-red-500',
     water: 'bg-blue-500',
     grass: 'bg-green-500',

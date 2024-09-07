@@ -25,7 +25,7 @@ const PokemonHome = () => {
     
 
   return (
-    <>
+    <div className='max-w-screen-xl mx-auto'>
     <img src='/pokemon.svg' className='w-56'/> 
       <PokemonFilter />
         <button
@@ -41,7 +41,7 @@ const PokemonHome = () => {
           <PokemonPagination offset={offset} onNext={handleNext}
             onPrev={handlePrev} />
         )}
-    </>
+    </div>
   )
 }
 

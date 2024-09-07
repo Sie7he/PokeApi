@@ -4,28 +4,39 @@ import { typeColors } from "../utils/color";
 
 const PokemonCard = ({ id, name, types, sprites }: PokemonData) => {
     
-    const primaryType = types[0].type.name;
-    const backgroundColor = typeColors[primaryType] || 'bg-gray-700';
+
   return (
-      <Link
-        to={'/'+id}
-        className={`max-w-xs rounded overflow-hidden shadow-lg transition duration-300 `}>
-          <img className="w-full" src={sprites.front_default} alt={name} />
-          <div className={`px-4 py-2 ${backgroundColor} text-gray-200`}>
-              <div className="font-bold text-xl mb-2 capitalize">{name}</div>
-              <p className="  text-base">Pokedex: {id}</p>
-              <div className="mt-2">
-                  {types.map((typeObj, index) => (
-                      <span
-                          key={index}
-                          className={`inline-block bg-${typeObj.type.name}-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 capitalize`}
-                      >
-                          {typeObj.type.name}
-                      </span>
-                  ))}
-              </div>
-          </div>
-      </Link>
+    <Link
+      to={"/" + id}
+      className={`max-w-xs rounded-lg overflow-hidden shadow-lg transition duration-300 transform hover:scale-105 bg-white`}
+    >
+      <div className="relative">
+        <img
+          className="w-full h-48 object-contain p-4"
+          src={sprites.other["official-artwork"].front_default}
+          alt={name}
+        />
+        <div
+          className={`absolute inset-x-0 top-0 h-2 `}
+        ></div>
+      </div>
+      <div className="p-4">
+        <h2 className="font-bold text-2xl capitalize mb-1 text-gray-800">
+          {name}
+        </h2>
+        <p className="text-gray-500 mb-4">Pokedex: {id}</p>
+        <div className="flex flex-wrap justify-start gap-2">
+          {types.map((t, index) => (
+            <span
+              key={index}
+              className={`inline-block rounded-full text-sm font-semibold text-white px-3 py-1 ${typeColors[t.type.name]} capitalize`}
+            >
+              {t.type.name}
+            </span>
+          ))}
+        </div>
+      </div>
+    </Link>
   );
 };
 

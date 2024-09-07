@@ -57,8 +57,26 @@ export async function getPokemon(id: string | undefined) {
    try {
     const response = await fetch(baseURL+'/pokemon/'+id)
     if (response.ok) {
-        const data = await response.json()
-        return data
+        const data = await response.json();
+        const moves = await data.moves.map(async(m:any) => {
+           const moves = await fetch(m.move.url);
+           const {name, power, type} = await moves.json();
+           return {name, power, type}
+        });
+        const movesArray = await Promise.all(moves);
+        const pokemonDetail = {
+            id: data.id,
+            name: data.name,
+            height: data.height,
+            weight: data.weight,
+            stats: data.stats,
+            sprites: data.sprites,
+            types: data.types.map((t:any) => t.type.name),
+            moves: movesArray
+
+           }
+        console.log(pokemonDetail)
+        return pokemonDetail;
     } else{
         throw new Error('Error al obtener datos del pokemon')
     }

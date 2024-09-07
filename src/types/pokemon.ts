@@ -7,7 +7,13 @@ export type PokemonData = {
     id: number,
     name: string;
     types: { type: { name: string } }[];
-    sprites: { front_default: string };
+    sprites: { 
+        other: {
+            "official-artwork": {
+            front_default: string;
+        }
+
+    } };
 };
 
 export type PokemonDetail = {
@@ -22,13 +28,19 @@ export type PokemonDetail = {
         };
     }[];
     moves: {
-        move: {
             name: string;
-        };
+            power: number;  
+            type:{
+                name: string;
+            }
     }[];
-    types: { type: { name: string } }[];
+    types: string[];
     sprites: {
         front_default: string;
+        other: {
+            "official-artwork": {
+            front_default: string;
+        }}
     };
 };
 
