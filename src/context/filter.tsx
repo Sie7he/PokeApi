@@ -2,6 +2,7 @@ import { createContext, useState, ReactNode  } from "react";
 
 type FilterState = {
     types: string;
+    name: string;
     generation: number | null;
 };
 
@@ -19,6 +20,7 @@ export const FilterContext = createContext<FilterContextType | undefined>(undefi
 export const FilterProvider = ({children}: FilterProviderProps) => {
     const [filters, setFilters] = useState<FilterState>({
         types: 'all',
+        name: '',
         generation: null
     });
 

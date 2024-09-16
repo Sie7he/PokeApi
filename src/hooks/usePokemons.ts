@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PokemonData } from "../types/pokemon";
-import { getPokemonsByType, getPokemonsPagination } from "../services/request";
+import { getPokemonByName, getPokemonsByType, getPokemonsPagination } from "../services/request";
 import { useFilterContext } from "./useFilterContext";
 
 
@@ -12,6 +12,7 @@ const [pokemon, setPokemon] = useState<PokemonData[]>([]);
 const [isLoading, setIsLoading] = useState<boolean>(true);
 const [error, setError] = useState<string | null>(null);
 const {filters} = useFilterContext();
+console.log(filters)
 
 
     useEffect(() => {
@@ -19,8 +20,11 @@ const {filters} = useFilterContext();
           try {
              
               let pokemones: PokemonData[];
+              if(filters.name.length > 0) {
+                pokemones = await getPokemonByName(filters.name.toLowerCase());
+              }
 
-              if(filters.types !== 'all') {
+              else if(filters.types !== 'all') {
                 pokemones = await getPokemonsByType(filters.types);
               } else {
                 pokemones = await getPokemonsPagination(offset);
@@ -37,9 +41,8 @@ const {filters} = useFilterContext();
           } finally {
               setIsLoading(false);
           }
-             
-          }
-          fetchPokemones();
+        }
+        fetchPokemones()
       }, [offset, filters, sortOrder])
 
       return {pokemon, isLoading, error}

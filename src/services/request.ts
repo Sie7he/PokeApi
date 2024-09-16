@@ -18,9 +18,35 @@ try {
 
 }
 
+
+export async function getPokemonByName(name: string):Promise<PokemonData[]> {
+
+   try {
+    const response = await fetch(`${baseURL}pokemon/${name.toLocaleLowerCase()}`)
+    if(response.ok) {
+        const data = await response.json();
+        return [{
+            id: data.id,
+            name: data.name,
+            types: data.types,
+            sprites: data.sprites
+        }]
+    } else {
+        throw new Error('Error')
+    }
+   } catch (error) {
+     console.log(error)
+   }
+
+
+
+    return [];
+
+}
+
 export async function getPokemonsPagination(offset: number):Promise<PokemonData[]> {
     try {
-        const response = await fetch(`${baseURL}pokemon/?limit=20&offset=${offset}`);
+        const response = await fetch(`${baseURL}pokemon?limit=20&offset=${offset}`);
         if (response.ok) {
             const data = await response.json();
             const pokemons = data.results.map(async(poke: any) => {
@@ -55,10 +81,10 @@ export async function getPokemonsByType(type: string): Promise<PokemonData[]> {
 
 export async function getPokemon(id: string | undefined) {
    try {
-    const response = await fetch(baseURL+'/pokemon/'+id)
+    const response = await fetch(baseURL+'pokemon/'+id)
     if (response.ok) {
         const data = await response.json();
-        const moves = await data.moves.map(async(m:any) => {
+        const moves =  data.moves.slice(0,5).map(async(m:any) => {
            const moves = await fetch(m.move.url);
            const {name, power, type} = await moves.json();
            return {name, power, type}
@@ -75,12 +101,12 @@ export async function getPokemon(id: string | undefined) {
             moves: movesArray
 
            }
-        console.log(pokemonDetail)
         return pokemonDetail;
     } else{
         throw new Error('Error al obtener datos del pokemon')
     }
    } catch (error) {
-    console.log(error)
+    console.log(error);
+    return null;
    }
 }

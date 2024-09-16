@@ -5,6 +5,7 @@ import { FaSort } from "react-icons/fa";
 import PokemonFilter from '../components/PokemonFilter';
 import PokemontList from '../components/PokemontList';
 import PokemonPagination from '../components/Pagination';
+import PokemonSearch from '../components/PokemonSearch';
 
 
 const PokemonHome = () => {
@@ -28,12 +29,15 @@ const PokemonHome = () => {
     <div className='max-w-screen-xl mx-auto'>
     <img src='/pokemon.svg' className='w-56'/> 
       <PokemonFilter />
-        <button
+       <div className='flex justify-around mb-4'>
+       <button
           onClick={handleSort}
           className="p-2 bg-red-500 text-white rounded"
         >
           <FaSort />
         </button>
+        <PokemonSearch />
+       </div>
         <PokemontList pokemon={pokemon} isLoading={isLoading} error={error}
         />
           {filters.types === 'all' &&
