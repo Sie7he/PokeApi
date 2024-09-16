@@ -38,8 +38,6 @@ export async function getPokemonByName(name: string):Promise<PokemonData[]> {
      console.log(error)
    }
 
-
-
     return [];
 
 }
@@ -107,6 +105,5 @@ export async function getPokemon(id: string | undefined) {
     }
    } catch (error) {
     console.log(error);
-    return null;
    }
 }

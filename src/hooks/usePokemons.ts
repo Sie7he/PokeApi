@@ -12,7 +12,6 @@ const [pokemon, setPokemon] = useState<PokemonData[]>([]);
 const [isLoading, setIsLoading] = useState<boolean>(true);
 const [error, setError] = useState<string | null>(null);
 const {filters} = useFilterContext();
-console.log(filters)
 
 
     useEffect(() => {
